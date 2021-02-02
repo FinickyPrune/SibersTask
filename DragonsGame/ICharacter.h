@@ -10,9 +10,9 @@ public:
 
 	virtual void drop() = 0;
 
-	virtual Objects getData() = 0; //не воид
+	virtual Objects getData() const = 0; //не воид
 
-
+	virtual Room* getRoom() const = 0;
 
 };
 

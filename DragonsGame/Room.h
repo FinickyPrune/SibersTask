@@ -33,15 +33,25 @@ private:
 
 public:
 
-	Doors getDoors() { return _doors; }
+	Doors getDoors() const { return _doors; }
 
 	void setDoorN(bool val) { _doors.N = val; }
+	
 	void setDoorS(bool val) { _doors.S = val; }
+	
 	void setDoorE(bool val) { _doors.E = val; }
+	
 	void setDoorW(bool val) { _doors.W = val; }
 
-	Objects* getItems() { return &_items; }
-	Cords getCords() { return _cords; }
+	Objects getItems() const { return _items; }
+
+	void setChest() { _items.chest = 1; }
+	
+	void setKey() { _items.key = 1; }
+	
+	void setTourchlight() { _items.torchlight = 1; }
+
+	Cords getCords() const { return _cords; }
 	
 	void setCords(Cords c) 
 	{ 

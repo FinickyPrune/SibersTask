@@ -16,18 +16,21 @@ private:
 
 public:
 
-	Model(size_t, size_t);
-	virtual ~Model();
+	Model() = default;
+	virtual ~Model() = default;
 
-	Maze* getMaze() { return _maze; }
-	ICharacter* getCharacter() { return _character; }
+	void generateMaze(Cords);
+	void spawnCharacter();
+
+	Maze* getMaze() const { return _maze; }
+	
+	ICharacter* getCharacter() const { return _character; }
 
 	ICommand* getCurrCommand() const { return _currCommand; }
+	
 	void setCurrCommand(ICommand* ptr) { _currCommand = ptr; }
 
 	void executeStep();
-
-	void spawnCharacter();
 
 	bool getExit() const { return  exit; }
 

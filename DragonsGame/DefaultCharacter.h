@@ -7,20 +7,23 @@ private:
 
 	Objects _inventory;
 	Room* _currRoom;
+	size_t _stepLimit = 0;
 
 public:
 
-	DefaultCharacter(Room*);
+	DefaultCharacter(Room*, size_t);
 
-	~DefaultCharacter();
+	~DefaultCharacter() = default;
 
-	void move(char) override;
+	void move(char) override {};
 
-	void get() override;
+	void get() override {};
 
-	void drop() override;
+	void drop() override {};
 
-	Objects getData() override; 
+	Objects getData() const override { return Objects(); }
+
+	Room* getRoom() const override { return _currRoom; }
 
 
 };

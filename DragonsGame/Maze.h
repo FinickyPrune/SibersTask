@@ -9,6 +9,7 @@ private:
 	size_t _XSize = 0;
 	size_t _YSize = 0;
 	Room** _field = nullptr;
+	size_t _minSteps = 0;
 
 public:
 
@@ -18,6 +19,7 @@ public:
 	size_t getYSize()  const { return _YSize; }
 	size_t getXSize()  const { return _XSize; }
 	Room** getField() { return _field; }
+	size_t getMinSteps() const { return _minSteps; }
 
 };
 

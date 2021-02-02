@@ -1,6 +1,7 @@
 #pragma once
 #include "IView.h"
 #include "Model.h"
+#include <iostream>
 
 class ConsoleView : public IView
 {
@@ -12,6 +13,8 @@ public:
     virtual ~ConsoleView() = default;
 
     void printInfo() override;
+
+    void printStartInfo() override;
 
 };
 

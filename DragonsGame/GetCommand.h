@@ -3,6 +3,6 @@
 class GetCommand : public ICommand
 {
 public:
-	virtual void execute() override;
+	virtual void execute(ICharacter*) override;
 };
 

@@ -34,6 +34,8 @@ Maze::Maze(size_t x, size_t y)
 	{
 		Room room = path.top();
 
+		_minSteps += 1;
+
 		Cords roomCords = room.getCords();
 
 		std::vector<Room> nextStep;
@@ -66,7 +68,7 @@ Maze::Maze(size_t x, size_t y)
 
 			if (nextCords.x != roomCords.x)
 			{
-				if (roomCords.x - nextCords.x > 0)
+				if (roomCords.x > nextCords.x)
 				{
 					_field[roomCords.x][roomCords.y].setDoorW(true);
 					_field[nextCords.x][nextCords.y].setDoorE(true);
@@ -81,7 +83,7 @@ Maze::Maze(size_t x, size_t y)
 
 			if (nextCords.y != roomCords.y)
 			{
-				if (roomCords.y - nextCords.y > 0)
+				if (roomCords.y > nextCords.y)
 				{
 					_field[roomCords.x][roomCords.y].setDoorS(true);
 					_field[nextCords.x][nextCords.y].setDoorN(true);
@@ -104,4 +106,25 @@ Maze::Maze(size_t x, size_t y)
 		}
 	}
 
+	for (size_t i = 0; i < _XSize; i++)
+	{
+		delete[] visited[i];
+	}
+
+	delete[] visited;
+
+	//SET ITEMS
+
+	_field[rand() % _XSize][rand() % _YSize].setChest();
+	_field[rand() % _XSize][rand() % _YSize].setKey();
+}
+
+Maze::~Maze()
+{
+	for (size_t i = 0; i < _XSize; i++)
+	{
+		delete[] _field[i];
+	}
+
+	delete[] _field;
 }
