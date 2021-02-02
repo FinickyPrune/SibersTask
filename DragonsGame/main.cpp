@@ -18,8 +18,14 @@ int main()
 	while (true)
 	{
 		console.printInfo();
-		
+		model.setCurrCommand(controller.parseCommand(&model, 1));
+		model.executeStep();
 	}
 
 	return 0;
 }
+
+
+// TODO
+// use limit of steps
+// make more methods in console

@@ -32,6 +32,8 @@ public:
 
 	void executeStep();
 
+	void updateRoom();
+
 	bool getExit() const { return  exit; }
 
 	void setExit(bool value) { exit = value; }

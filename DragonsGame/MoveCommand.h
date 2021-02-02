@@ -3,11 +3,14 @@
 class MoveCommand : public ICommand
 {
 private:
-	std::string _direction;
+	char _direction;
 public:
 
-	MoveCommand(std::string s) { _direction = s; }
+	MoveCommand(char s) { _direction = s; }
 
-	virtual void execute(ICharacter*) override;
+	virtual void execute(ICharacter* character) override
+	{
+		character->move(_direction);
+	}
 };
 

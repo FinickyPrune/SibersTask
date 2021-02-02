@@ -9,7 +9,7 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 
 	if (word == "E" || word == "W" || word == "S" || word == "N")
 	{
-		currCommand = new MoveCommand(word);
+		currCommand = new MoveCommand(word[0]);
 	}
 
 	else if (word == "GET")
@@ -20,6 +20,8 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 	{
 		word = getWord();
 	}
+
+	return currCommand;
 }
 
 const std::string Controller::getWord()

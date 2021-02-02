@@ -16,22 +16,31 @@ struct Cords
 	size_t y = 0;
 };
 
-struct Objects
-{
-	size_t key = 0;
-	size_t chest = 0;
-	size_t torchlight = 0;
-};
+//struct Objects
+//{
+//	size_t key = 0;
+//	size_t chest = 0;
+//	size_t torchlight = 0;
+//};
 
 class Room
 {
 private:
 
 	Doors _doors;
-	Objects _items;
+	std::map<std::string, size_t> _items;
 	Cords _cords;
+	size_t _OpenDoors = 0;
 
 public:
+
+	Room() = default;
+
+	//~Room(); //delete map
+
+	void addOpenDoor() { _OpenDoors += 1; }
+
+	size_t getOpenDoors() { return _OpenDoors; }
 
 	Doors getDoors() const { return _doors; }
 
@@ -43,13 +52,15 @@ public:
 	
 	void setDoorW(bool val) { _doors.W = val; }
 
-	Objects getItems() const { return _items; }
+	auto getItems() const { return _items; }
 
-	void setChest() { _items.chest = 1; }
+	void setItem(std::string);
+
+	/*void setChest() { _items.chest = 1; }
 	
 	void setKey() { _items.key = 1; }
 	
-	void setTourchlight() { _items.torchlight = 1; }
+	void setTourchlight() { _items.torchlight = 1; }*/
 
 	Cords getCords() const { return _cords; }
 	

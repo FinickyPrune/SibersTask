@@ -72,12 +72,18 @@ Maze::Maze(size_t x, size_t y)
 				{
 					_field[roomCords.x][roomCords.y].setDoorW(true);
 					_field[nextCords.x][nextCords.y].setDoorE(true);
+
+					_field[roomCords.x][roomCords.y].addOpenDoor();
+					_field[nextCords.x][nextCords.y].addOpenDoor();
 				}
 
 				else
 				{
 					_field[roomCords.x][roomCords.y].setDoorE(true);
 					_field[nextCords.x][nextCords.y].setDoorW(true);
+
+					_field[roomCords.x][roomCords.y].addOpenDoor();
+					_field[nextCords.x][nextCords.y].addOpenDoor();
 				}
 			}
 
@@ -87,12 +93,18 @@ Maze::Maze(size_t x, size_t y)
 				{
 					_field[roomCords.x][roomCords.y].setDoorS(true);
 					_field[nextCords.x][nextCords.y].setDoorN(true);
+
+					_field[roomCords.x][roomCords.y].addOpenDoor();
+					_field[nextCords.x][nextCords.y].addOpenDoor();
 				}
 
 				else
 				{
 					_field[roomCords.x][roomCords.y].setDoorN(true);
 					_field[nextCords.x][nextCords.y].setDoorS(true);
+
+					_field[roomCords.x][roomCords.y].addOpenDoor();
+					_field[nextCords.x][nextCords.y].addOpenDoor();
 				}
 			}
 
@@ -115,8 +127,8 @@ Maze::Maze(size_t x, size_t y)
 
 	//SET ITEMS
 
-	_field[rand() % _XSize][rand() % _YSize].setChest();
-	_field[rand() % _XSize][rand() % _YSize].setKey();
+	_field[rand() % _XSize][rand() % _YSize].setItem("CHEST");
+	_field[rand() % _XSize][rand() % _YSize].setItem("KEY");
 }
 
 Maze::~Maze()
