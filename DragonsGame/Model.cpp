@@ -18,6 +18,7 @@ void Model::executeStep()
 		delete _currCommand;
 	}
 
+	_check = (_character->getWin() || _character->getFail());
 	updateRoom();
 }
 

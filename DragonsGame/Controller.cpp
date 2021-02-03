@@ -20,7 +20,10 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 	{
 		currCommand = new DropCommand(getWord());
 	}
-
+	else if (word == "OPEN")
+	{
+		currCommand = new OpenCommand();
+	}
 	return currCommand;
 }
 

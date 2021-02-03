@@ -10,6 +10,8 @@ private:
 	Room* _currRoom;
 	size_t _stepLimit = 0;
 	Cords _cords;
+	bool _win = 0;
+	bool _fail = 0;
 
 public:
 
@@ -23,7 +25,7 @@ public:
 
 	void drop(std::string) override;
 
-	//auto getData() const override { return Objects(); }
+	void open() override;
 
 	Room* getRoom() const override { return _currRoom; }
 
@@ -32,6 +34,12 @@ public:
 	Cords getCords() override { return _cords; }
 
 	void setCords(Cords c) { _cords.x = c.x; _cords.y = c.y; }
+	
+	//auto getInventory() { return _inventory; };
+
+	bool getWin() { return _win; }
+
+	bool getFail() { return _fail; }
 
 };
 

@@ -4,6 +4,7 @@
 #include "DropCommand.h"
 #include "GetCommand.h"
 #include "MoveCommand.h"
+#include "OpenCommand.h"
 
 class Model
 {
@@ -13,6 +14,7 @@ private:
 	ICharacter* _character = nullptr;
 	ICommand* _currCommand = nullptr;
 	bool exit = false;
+	bool _check = false;
 
 public:
 
@@ -37,5 +39,7 @@ public:
 	bool getExit() const { return  exit; }
 
 	void setExit(bool value) { exit = value; }
+
+	bool getCheck() { return _check; }
 };
 

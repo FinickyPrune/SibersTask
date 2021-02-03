@@ -10,7 +10,7 @@ public:
 
 	virtual void drop(std::string) = 0;
 
-	//virtual auto getData() const = 0; //не воид
+	virtual void open() = 0;
 
 	virtual Room* getRoom() const = 0;
 
@@ -19,6 +19,12 @@ public:
 	virtual Cords getCords() = 0;
 
 	virtual void setCords(Cords) = 0;
+
+	virtual bool getWin() = 0;
+
+	virtual bool getFail() = 0;
+
+	//virtual std::map<std::string, size_t> getInventory() = 0;
 
 };
 

@@ -142,12 +142,9 @@
     <ClCompile Include="ConsoleView.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DefaultCharacter.cpp" />
-    <ClCompile Include="DropCommand.cpp" />
-    <ClCompile Include="GetCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +159,7 @@
     <ClInclude Include="Maze.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="OpenCommand.h" />
     <ClInclude Include="Room.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

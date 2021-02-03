@@ -16,5 +16,13 @@ public:
 
     void printStartInfo() override;
 
+    void darkRoomMessage() override;
+
+    void winMessage() override;
+
+    void failMessage() override;
+
+    void roomInfo() override;
+
 };
 

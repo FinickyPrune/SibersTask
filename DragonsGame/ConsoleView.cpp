@@ -9,6 +9,47 @@ void ConsoleView::printInfo()
 {
 	system("cls");
 
+	if (!(_model->getCheck()))
+	{
+		roomInfo();
+	}
+	else
+	{
+		if (_model->getCharacter()->getWin())
+		{
+			winMessage();
+		}
+		else if (_model->getCharacter()->getFail())
+		{
+			failMessage();
+		}
+	}
+	
+}
+
+void ConsoleView::printStartInfo()
+{
+	std::cout << "Hello!" << std::endl;
+	std::cout << "Enter maze sizes ([x_size] [y_size]): ";
+}
+
+void ConsoleView::darkRoomMessage()
+{
+	std::cout << "Can't see anything in this dark place!" << std::endl;
+}
+
+void ConsoleView::winMessage()
+{
+	std::cout << "Congrats! You won!" << std::endl;
+}
+
+void ConsoleView::failMessage()
+{
+	std::cout << "Oh no! You failed..." << std::endl;
+}
+
+void ConsoleView::roomInfo()
+{
 	Room currRoom = *_model->getCharacter()->getRoom();
 
 	std::cout << "You are in the room [";
@@ -40,10 +81,4 @@ void ConsoleView::printInfo()
 	{
 		std::cout << it->first << " : " << it->second << std::endl;
 	}
-}
-
-void ConsoleView::printStartInfo()
-{
-	std::cout << "Hello!" << std::endl;
-	std::cout << "Enter maze sizes ([x_size] [y_size]): ";
 }

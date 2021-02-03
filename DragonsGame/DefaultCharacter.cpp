@@ -32,6 +32,10 @@ void DefaultCharacter::move(char c)
 			_stepLimit -= 1;
 		}
 	}
+	else
+	{
+		_fail = true;
+	}
 }
 
 void DefaultCharacter::get(std::string item)
@@ -60,5 +64,17 @@ void DefaultCharacter::drop(std::string item)
 	if (_inventory[item] == 0)
 	{
 		_inventory.erase(item);
+	}
+}
+
+void DefaultCharacter::open()
+{
+	if (_inventory.count("KEY") != 0 && _currRoom->getItems()["CHEST"] != 0)
+	{
+		_win = true;
+	}
+	else if (_currRoom->getItems()["CHEST"] != 0 && (_inventory.count("KEY") == 0 || _inventory["KEY"] == 0))
+	{
+		_fail = true;
 	}
 }
