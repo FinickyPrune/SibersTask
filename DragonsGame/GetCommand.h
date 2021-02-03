@@ -2,7 +2,18 @@
 #include "ICommand.h"
 class GetCommand : public ICommand
 {
+private:
+	std::string  _item;
+
 public:
-	virtual void execute(ICharacter*) override;
+
+	GetCommand(std::string s) { _item = s; }
+
+	~GetCommand() = default;
+
+	virtual void execute(ICharacter* character) override
+	{
+		character->get(_item);
+	}
 };
 

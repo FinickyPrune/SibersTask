@@ -14,11 +14,11 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 
 	else if (word == "GET")
 	{
-		word = getWord();
+		currCommand = new GetCommand(getWord());
 	}
 	else if (word == "DROP")
 	{
-		word = getWord();
+		currCommand = new DropCommand(getWord());
 	}
 
 	return currCommand;

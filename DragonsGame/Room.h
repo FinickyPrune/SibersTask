@@ -56,6 +56,8 @@ public:
 
 	void setItem(std::string);
 
+	bool subItem(std::string);
+
 	/*void setChest() { _items.chest = 1; }
 	
 	void setKey() { _items.key = 1; }

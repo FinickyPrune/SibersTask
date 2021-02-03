@@ -2,8 +2,18 @@
 #include "ICommand.h"
 class DropCommand : public ICommand
 {
+private:
+	std::string  _item;
+
 public:
 
-	virtual void execute(ICharacter*) override;
+	DropCommand(std::string s) { _item = s; }
+
+	~DropCommand() = default;
+
+	virtual void execute(ICharacter* character) override
+	{
+		character->drop(_item);
+	}
 };
 

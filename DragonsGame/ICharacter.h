@@ -6,9 +6,9 @@ public:
 
 	virtual void move(char) = 0;
 
-	virtual void get() = 0;
+	virtual void get(std::string) = 0;
 
-	virtual void drop() = 0;
+	virtual void drop(std::string) = 0;
 
 	//virtual auto getData() const = 0; //не воид
 

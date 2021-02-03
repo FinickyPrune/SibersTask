@@ -19,9 +19,9 @@ public:
 
 	void move(char) override;
 
-	void get() override {};
+	void get(std::string) override;
 
-	void drop() override {};
+	void drop(std::string) override;
 
 	//auto getData() const override { return Objects(); }
 
