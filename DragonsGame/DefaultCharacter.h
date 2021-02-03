@@ -33,6 +33,8 @@ public:
 
 	void open() override;
 
+	void eat() override;
+
 	Room* getRoom() const override { return _currRoom; }
 
 	void setRoom(Room* room) override { _currRoom = room; };
@@ -45,7 +47,7 @@ public:
 
 	bool getFail() { return _fail; }
 
-	bool getSight() { return _canSee; }
+	bool getSight() { return _currRoom->canSeeInRoom() || _hasTourchlight; }
 
 };
 

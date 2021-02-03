@@ -21,5 +21,9 @@ public:
 	Room** getField() { return _field; }
 	size_t getMinSteps() const { return _minSteps; }
 
+	void mazeGeneration();
+
+	void generateItems();
+
 };
 

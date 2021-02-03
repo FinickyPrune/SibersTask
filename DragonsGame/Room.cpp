@@ -6,11 +6,11 @@ Room::~Room()
 	_items.clear();
 }
 
-void Room::setItem(std::string item)
+void Room::setItem(std::string item, size_t amount)
 {
 	if (_items.count(item) == 0)
 	{
-		_items.insert({ item, 1 });
+		_items.insert({ item, amount });
 
 		if (item == "TOURCHLIGHT")
 		{
@@ -19,11 +19,11 @@ void Room::setItem(std::string item)
 	}
 	else
 	{
-		_items[item] += 1;
+		_items[item] += amount;
 	}
 }
 
-bool Room::subItem(std::string item)
+bool Room::subItem(std::string item, size_t amount)
 {
 	if (_items.count(item) != 0)
 	{
@@ -32,14 +32,15 @@ bool Room::subItem(std::string item)
 			_hasTourchlight = false;
 		}
 		
-		_items[item] -= 1;
+		_items[item] -= amount;
+
+		if (_items[item] == 0)
+		{
+			_items.erase(item);
+		}
 		return true;
 	}
-	if (_items[item] == 0)
-	{
-		_items.erase(item);
-		return false;
-	}
+	
 	if (_items.count(item) == 0)
 	{
 		return false;

@@ -42,9 +42,11 @@ void DefaultCharacter::move(char c)
 
 void DefaultCharacter::get(std::string item)
 {
-	if (item != "CHEST" && _canSee)
+	_canSee = _currRoom->canSeeInRoom() || _hasTourchlight;
+
+	if (item != "GOLD" && item != "CHEST" && _canSee)
 	{
-		if (_inventory.count(item) == 0 && _currRoom->subItem(item))
+		if (_inventory.count(item) == 0 && _currRoom->subItem(item, 1))
 		{
 			_inventory.insert({ item,1 });
 
@@ -61,9 +63,21 @@ void DefaultCharacter::get(std::string item)
 				_hasTourchlight = true;
 			}
 		}
-		else if (_currRoom->subItem(item))
+		else if (_currRoom->subItem(item, 1))
 		{
 			_inventory[item] += 1;
+		}
+	}
+	else if (item == "GOLD" && _canSee)
+	{
+		if (_inventory.count(item) == 0 && _currRoom->subItem(item, 1))
+		{
+			_inventory.insert({ item, _currRoom->getItems()["GOLD"] + 1});
+			_currRoom->subItem(item, _currRoom->getItems()["GOLD"]);
+		}
+		else if (_currRoom->subItem(item, 1))
+		{
+			_inventory[item] += _currRoom->getItems()["GOLD"] + 1;
 		}
 	}
 	
@@ -71,12 +85,14 @@ void DefaultCharacter::get(std::string item)
 
 void DefaultCharacter::drop(std::string item)
 {
+	_canSee = _currRoom->canSeeInRoom() || _hasTourchlight;
+	
 	if (_canSee)
 	{
 		if (_inventory.count(item) != 0)
 		{
 			_inventory[item] -= 1;
-			_currRoom->setItem(item);
+			_currRoom->setItem(item, 1);
 
 			if (item == "KEY")
 			{
@@ -105,5 +121,25 @@ void DefaultCharacter::open()
 	if (_inventory.count("KEY") != 0 && _currRoom->getItems()["CHEST"] != 0 && _canSee)
 	{
 		_win = true;
+	}
+}
+
+void DefaultCharacter::eat()
+{
+	if (_currRoom->getItems().count("FOOD") != 0)
+	{
+		_currRoom->subItem("FOOD", 1);
+		_stepLimit = static_cast<size_t>(_stepLimit * 1.2);
+
+	}
+	else if (_inventory.count("FOOD") != 0)
+	{
+		_inventory["FOOD"] -= 1;
+		_stepLimit = static_cast<size_t>(_stepLimit * 1.2);
+
+		if (_inventory["FOOD"] == 0)
+		{
+			_inventory.erase("FOOD");
+		}
 	}
 }

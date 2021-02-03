@@ -24,6 +24,11 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 	{
 		currCommand = new OpenCommand();
 	}
+	else if (word == "EAT")
+	{
+		currCommand = new EatCommand();
+	}
+
 	return currCommand;
 }
 

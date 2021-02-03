@@ -142,6 +142,7 @@
     <ClCompile Include="ConsoleView.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DefaultCharacter.cpp" />
+    <ClCompile Include="EatCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DefaultCharacter.h" />
     <ClInclude Include="DropCommand.h" />
+    <ClInclude Include="EatCommand.h" />
     <ClInclude Include="GetCommand.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="ICommand.h" />

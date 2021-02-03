@@ -12,6 +12,8 @@ public:
 
 	virtual void open() = 0;
 
+	virtual void eat() = 0;
+
 	virtual Room* getRoom() const = 0;
 
 	virtual void setRoom(Room*) = 0;

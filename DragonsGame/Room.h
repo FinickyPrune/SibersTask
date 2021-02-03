@@ -28,6 +28,7 @@ public:
 
 	virtual ~Room();
 
+	void setDarkRoom() { _darkRoom = true; }
 	//bool isDarkRoom() { return _darkRoom; }
 
 	bool canSeeInRoom() { return !_darkRoom || _hasTourchlight; }
@@ -42,9 +43,9 @@ public:
 
 	auto getItems() const { return _items; }
 
-	void setItem(std::string);
+	void setItem(std::string, size_t);
 
-	bool subItem(std::string);
+	bool subItem(std::string, size_t);
 
 	Cords getCords() const { return _cords; }
 	

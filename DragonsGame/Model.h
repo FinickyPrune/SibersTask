@@ -5,6 +5,7 @@
 #include "GetCommand.h"
 #include "MoveCommand.h"
 #include "OpenCommand.h"
+#include "EatCommand.h"
 
 class Model
 {

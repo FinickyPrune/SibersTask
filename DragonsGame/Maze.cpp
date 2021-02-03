@@ -6,21 +6,46 @@ Maze::Maze(size_t x, size_t y)
 	_YSize = y;
 
 	_field = new Room*[_XSize];
-	bool** visited = new bool*[_XSize];
 
 	for (size_t i = 0; i < _XSize; i++)
 	{	
 		_field[i] = new Room[_YSize];
-		visited[i] = new bool[_YSize];
 
 		for (size_t j = 0; j < _YSize; j++)
 		{
 			_field[i][j].setCords({ i,j });
-			visited[i][j] = false;
 		}
 	}
 
-	//MAZE GENERATION
+	mazeGeneration();
+	generateItems();
+
+}
+
+Maze::~Maze()
+{
+	for (size_t i = 0; i < _XSize; i++)
+	{
+		delete[] _field[i];
+	}
+
+	delete[] _field;
+}
+
+void Maze::mazeGeneration()
+{
+
+	bool** visited = new bool* [_XSize];
+
+	for (size_t i = 0; i < _XSize; i++)
+	{
+		visited[i] = new bool[_YSize];
+
+		for (size_t j = 0; j < _YSize; j++)
+		{
+			visited[i][j] = false;
+		}
+	}
 
 	size_t startX = rand() % _XSize;
 	size_t startY = rand() % _YSize;
@@ -33,7 +58,7 @@ Maze::Maze(size_t x, size_t y)
 	while (!path.empty())
 	{
 		_minSteps += 1;
-		
+
 		Room room = path.top();
 
 		Cords roomCords = room.getCords();
@@ -124,19 +149,19 @@ Maze::Maze(size_t x, size_t y)
 	}
 
 	delete[] visited;
-
-	//SET ITEMS
-
-	_field[rand() % _XSize][rand() % _YSize].setItem("CHEST");
-	_field[rand() % _XSize][rand() % _YSize].setItem("KEY");
 }
 
-Maze::~Maze()
+void Maze::generateItems()
 {
-	for (size_t i = 0; i < _XSize; i++)
-	{
-		delete[] _field[i];
-	}
+	_field[rand() % _XSize][rand() % _YSize].setItem("CHEST", 1);
+	_field[rand() % _XSize][rand() % _YSize].setItem("KEY", 1);
 
-	delete[] _field;
+	for (size_t i = 0; i < static_cast<size_t>(_XSize*_YSize/4); i++)
+	{
+		_field[rand() % _XSize][rand() % _YSize].setItem("TOURCHLIGHT",1);
+		_field[rand() % _XSize][rand() % _YSize].setDarkRoom();
+		_field[rand() % _XSize][rand() % _YSize].setItem("FOOD", 1);
+		
+		_field[rand() % _XSize][rand() % _YSize].setItem("GOLD", rand()%10);
+	}
 }

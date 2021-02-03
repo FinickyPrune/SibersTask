@@ -81,7 +81,15 @@ void ConsoleView::roomInfo()
 
 		for (auto it = items.begin(); it != items.end(); it++)
 		{
-			std::cout << it->first << " : " << it->second << std::endl;
+			if (it->first == "GOLD")
+			{
+				std::cout << it->first << " : " << it->second << " COINS" << std::endl;
+			}
+			
+			else
+			{
+				std::cout << it->first << " : " << it->second << std::endl;
+			}
 		}
 	}
 	else
