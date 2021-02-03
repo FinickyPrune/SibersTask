@@ -29,27 +29,47 @@ void ConsoleView::printInfo()
 
 void ConsoleView::printStartInfo()
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
+
 	std::cout << "Hello! Ready to explore?" << std::endl;
 	std::cout << "Enter maze sizes ([x_size] [y_size]): ";
 }
 
 void ConsoleView::darkRoomMessage()
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
+
 	std::cout << "Can't see anything in this dark place!" << std::endl;
 }
 
 void ConsoleView::winMessage()
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Green << 4) | Black));
+
 	std::cout << "Congrats! You've got the Holy Grail!" << std::endl;
 }
 
 void ConsoleView::failMessage()
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Red << 4) | Black));
+
 	std::cout << "Oh no! You failed..." << std::endl;
 }
 
 void ConsoleView::roomInfo()
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
+
 	if (_model->getCharacter()->getSight() == true)
 	{
 		Room currRoom = *_model->getCharacter()->getRoom();
@@ -75,7 +95,7 @@ void ConsoleView::roomInfo()
 			std::cout << "N ";
 		}
 
-		std::cout << ". Items in the room:" << std::endl;
+		std::cout << ". Items in the room:" << std::endl << std::endl;
 
 		auto items = currRoom.getItems();
 
@@ -83,7 +103,11 @@ void ConsoleView::roomInfo()
 		{
 			if (it->first == "GOLD")
 			{
+				SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Yellow));
+
 				std::cout << it->first << " : " << it->second << " COINS" << std::endl;
+
+				SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
 			}
 			
 			else
