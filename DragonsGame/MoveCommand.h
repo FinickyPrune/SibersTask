@@ -8,6 +8,8 @@ public:
 
 	MoveCommand(char s) { _direction = s; }
 
+	virtual ~MoveCommand() = default;
+
 	virtual void execute(ICharacter* character) override
 	{
 		character->move(_direction);

@@ -9,7 +9,7 @@ public:
 
 	DropCommand(std::string s) { _item = s; }
 
-	~DropCommand() = default;
+	virtual ~DropCommand() = default;
 
 	virtual void execute(ICharacter* character) override
 	{

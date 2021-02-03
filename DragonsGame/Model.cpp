@@ -1,5 +1,11 @@
 #include "Model.h"
 
+Model::~Model()
+{
+	delete _maze;
+	delete _character;
+}
+
 void Model::generateMaze(Cords c)
 {
 	_maze = new Maze(c.x, c.y);

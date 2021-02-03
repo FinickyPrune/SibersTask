@@ -19,7 +19,7 @@ private:
 public:
 
 	Model() = default;
-	virtual ~Model() = default;
+	virtual ~Model();
 
 	void generateMaze(Cords);
 	void spawnCharacter();

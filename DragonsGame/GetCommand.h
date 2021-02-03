@@ -9,7 +9,7 @@ public:
 
 	GetCommand(std::string s) { _item = s; }
 
-	~GetCommand() = default;
+	virtual ~GetCommand() = default;
 
 	virtual void execute(ICharacter* character) override
 	{

@@ -27,5 +27,5 @@ int main()
 
 
 // TODO
-// use limit of steps           |
-// make more methods in console |
+// use limit of steps           | DONE
+// make more methods in console | DONE

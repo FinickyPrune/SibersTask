@@ -5,7 +5,7 @@ class OpenCommand : public ICommand
 public:
 	OpenCommand() = default;
 
-	~OpenCommand() = default;
+	virtual ~OpenCommand() = default;
 
 	void execute(ICharacter* character) override
 	{

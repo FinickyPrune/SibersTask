@@ -29,7 +29,7 @@ void ConsoleView::printInfo()
 
 void ConsoleView::printStartInfo()
 {
-	std::cout << "Hello!" << std::endl;
+	std::cout << "Hello! Ready to explore?" << std::endl;
 	std::cout << "Enter maze sizes ([x_size] [y_size]): ";
 }
 
@@ -40,7 +40,7 @@ void ConsoleView::darkRoomMessage()
 
 void ConsoleView::winMessage()
 {
-	std::cout << "Congrats! You won!" << std::endl;
+	std::cout << "Congrats! You've got the Holy Grail!" << std::endl;
 }
 
 void ConsoleView::failMessage()
@@ -50,35 +50,43 @@ void ConsoleView::failMessage()
 
 void ConsoleView::roomInfo()
 {
-	Room currRoom = *_model->getCharacter()->getRoom();
-
-	std::cout << "You are in the room [";
-	std::cout << currRoom.getCords().x << ", " << currRoom.getCords().y << "]. ";
-	std::cout << "There are " << currRoom.getOpenDoors() << " doors: ";
-
-	if (currRoom.getDoors().E)
+	if (_model->getCharacter()->getSight() == true)
 	{
-		std::cout << "E ";
-	}
-	if (currRoom.getDoors().W)
-	{
-		std::cout << "W ";
-	}
-	if (currRoom.getDoors().S)
-	{
-		std::cout << "S ";
-	}
-	if (currRoom.getDoors().N)
-	{
-		std::cout << "N ";
-	}
+		Room currRoom = *_model->getCharacter()->getRoom();
 
-	std::cout << ". Items in the room:" << std::endl;
+		std::cout << "You are in the room [";
+		std::cout << currRoom.getCords().x << ", " << currRoom.getCords().y << "]. ";
+		std::cout << "There are " << currRoom.getOpenDoors() << " doors: ";
 
-	auto items = currRoom.getItems();
+		if (currRoom.getDoors()['E'])
+		{
+			std::cout << "E ";
+		}
+		if (currRoom.getDoors()['W'])
+		{
+			std::cout << "W ";
+		}
+		if (currRoom.getDoors()['S'])
+		{
+			std::cout << "S ";
+		}
+		if (currRoom.getDoors()['N'])
+		{
+			std::cout << "N ";
+		}
 
-	for (auto it = items.begin(); it != items.end(); it++)
-	{
-		std::cout << it->first << " : " << it->second << std::endl;
+		std::cout << ". Items in the room:" << std::endl;
+
+		auto items = currRoom.getItems();
+
+		for (auto it = items.begin(); it != items.end(); it++)
+		{
+			std::cout << it->first << " : " << it->second << std::endl;
+		}
 	}
+	else
+	{
+		darkRoomMessage();
+	}
+	
 }

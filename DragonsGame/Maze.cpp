@@ -32,9 +32,9 @@ Maze::Maze(size_t x, size_t y)
 
 	while (!path.empty())
 	{
-		Room room = path.top();
-
 		_minSteps += 1;
+		
+		Room room = path.top();
 
 		Cords roomCords = room.getCords();
 
@@ -70,8 +70,8 @@ Maze::Maze(size_t x, size_t y)
 			{
 				if (roomCords.x > nextCords.x)
 				{
-					_field[roomCords.x][roomCords.y].setDoorW(true);
-					_field[nextCords.x][nextCords.y].setDoorE(true);
+					_field[roomCords.x][roomCords.y].setDoor('W');
+					_field[nextCords.x][nextCords.y].setDoor('E');
 
 					_field[roomCords.x][roomCords.y].addOpenDoor();
 					_field[nextCords.x][nextCords.y].addOpenDoor();
@@ -79,8 +79,8 @@ Maze::Maze(size_t x, size_t y)
 
 				else
 				{
-					_field[roomCords.x][roomCords.y].setDoorE(true);
-					_field[nextCords.x][nextCords.y].setDoorW(true);
+					_field[roomCords.x][roomCords.y].setDoor('E');
+					_field[nextCords.x][nextCords.y].setDoor('W');
 
 					_field[roomCords.x][roomCords.y].addOpenDoor();
 					_field[nextCords.x][nextCords.y].addOpenDoor();
@@ -91,8 +91,8 @@ Maze::Maze(size_t x, size_t y)
 			{
 				if (roomCords.y > nextCords.y)
 				{
-					_field[roomCords.x][roomCords.y].setDoorS(true);
-					_field[nextCords.x][nextCords.y].setDoorN(true);
+					_field[roomCords.x][roomCords.y].setDoor('S');
+					_field[nextCords.x][nextCords.y].setDoor('N');
 
 					_field[roomCords.x][roomCords.y].addOpenDoor();
 					_field[nextCords.x][nextCords.y].addOpenDoor();
@@ -100,8 +100,8 @@ Maze::Maze(size_t x, size_t y)
 
 				else
 				{
-					_field[roomCords.x][roomCords.y].setDoorN(true);
-					_field[nextCords.x][nextCords.y].setDoorS(true);
+					_field[roomCords.x][roomCords.y].setDoor('N');
+					_field[nextCords.x][nextCords.y].setDoor('S');
 
 					_field[roomCords.x][roomCords.y].addOpenDoor();
 					_field[nextCords.x][nextCords.y].addOpenDoor();

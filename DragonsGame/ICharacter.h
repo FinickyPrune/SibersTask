@@ -24,7 +24,6 @@ public:
 
 	virtual bool getFail() = 0;
 
-	//virtual std::map<std::string, size_t> getInventory() = 0;
-
+	virtual bool getSight() = 0;
 };
 

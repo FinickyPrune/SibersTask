@@ -10,6 +10,7 @@ private:
 
 public:
     ConsoleView(Model*);
+    
     virtual ~ConsoleView() = default;
 
     void printInfo() override;
