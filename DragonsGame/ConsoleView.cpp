@@ -116,7 +116,7 @@ void ConsoleView::roomInfo()
 			}
 		}
 
-		if (_model->getCharacter()->getRoom()->isMonsterinRoom() == true)
+		if (_model->getCharacter()->getRoom()->isMonsterInRoom() == true)
 		{
 			SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Red));
 

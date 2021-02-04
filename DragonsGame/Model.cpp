@@ -18,26 +18,54 @@ void Model::spawnCharacter()
 
 void Model::executeStep()
 {
-	//check if monster in the room
-	//if (yes) 
-	//{
-	//5 sec
-
-	if (_character->getRoom()->isMonsterinRoom() == true)
+	if (_character->getRoom()->isMonsterInRoom() == true && _currCommand != nullptr)
 	{
-		Timer timer;
+		_character->setReaction(true);
 
-		timer.add(std::chrono::milliseconds(6000), monsterAttack, true);
+		size_t chance = rand() % 3;
+
+		switch (chance)
+		{
+		case 0:
+		{
+			executeCommand();
+			break;
+		}
+		case 1:
+		{
+			_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+			executeCommand();
+
+			break;
+		}
+		case 2:
+		{
+			_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+			_character->move(_character->getLastDoor());
+
+			break;
+		}
+		default:
+			break;
+		}
+
+
 	}
 
 	if (_currCommand != nullptr)
 	{
-		_currCommand->execute(_character);
-		delete _currCommand;
+		executeCommand();
 	}
 
 	_check = (_character->getWin() || _character->getFail());
+	
 	updateRoom();
+
+	if (_character->getRoom()->isMonsterInRoom() == true)
+	{
+
+		delayMonsterAttack(std::chrono::milliseconds(5000));		
+	}
 }
 
 void Model::updateRoom()
@@ -54,7 +82,31 @@ void Model::updateRoom()
 
 void Model::monsterAttack()
 {
+	if (_character->getReaction() == false)
+	{
+		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+		_character->move(_character->getLastDoor());
+	}
+}
 
+void Model::delayMonsterAttack(std::chrono::milliseconds delay)
+{
+	std::thread([=]()
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+			std::cout << "Time is up";
+			monsterAttack();
+			_character->setReaction(false);
+
+		}).detach();
+		
+}
+
+void Model::executeCommand()
+{
+	_currCommand->execute(_character);
+	delete _currCommand;
+	_currCommand = nullptr;
 }
 
 

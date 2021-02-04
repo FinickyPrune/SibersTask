@@ -9,6 +9,7 @@
 #include "MoveCommand.h"
 #include "OpenCommand.h"
 #include "EatCommand.h"
+#include <iostream>
 //#include "Timer.h"
 
 class Timer
@@ -73,5 +74,9 @@ public:
 	bool getCheck() { return _check; }
 
 	void monsterAttack();
+
+	void delayMonsterAttack(std::chrono::milliseconds delay);
+
+	void executeCommand();
 };
 

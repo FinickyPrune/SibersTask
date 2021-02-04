@@ -5,7 +5,7 @@ DefaultCharacter::DefaultCharacter(Room* room, size_t limit)
 	_currRoom = room;
 	_stepLimit = limit;
 	_cords = _currRoom->getCords();
-
+	_lastDoor = 'E';
 	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
 }
 
@@ -13,28 +13,33 @@ void DefaultCharacter::move(char c)
 {
 	if (_stepLimit != 0)
 	{
-		_prevCords.x = _cords.x;
-		_prevCords.y = _cords.y;
 
 		if (c == 'E' && _currRoom->getDoors()['E'] == true)
 		{
 			_cords.x += 1;
 			_stepLimit -= 1;
+			_lastDoor = 'W';
 		}
 		else if (c == 'W' && _currRoom->getDoors()['W'] == true)
 		{
 			_cords.x -= 1;
 			_stepLimit -= 1;
+			_lastDoor = 'E';
+
 		}
 		else if (c == 'N' && _currRoom->getDoors()['N'] == true)
 		{
 			_cords.y += 1;
 			_stepLimit -= 1;
+			_lastDoor = 'S';
+
 		}
 		else if (c == 'S' && _currRoom->getDoors()['S'] == true)
 		{
 			_cords.y -= 1;
 			_stepLimit -= 1;
+			_lastDoor = 'N';
+
 		}
 	}
 	else
@@ -81,6 +86,7 @@ void DefaultCharacter::get(std::string item)
 		else if (_currRoom->subItem(item, 1))
 		{
 			_inventory[item] += _currRoom->getItems()["GOLD"] + 1;
+			_currRoom->subItem(item, _currRoom->getItems()["GOLD"]);
 		}
 	}
 	

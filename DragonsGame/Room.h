@@ -40,7 +40,7 @@ public:
 
 	bool canSeeInRoom() { return !_darkRoom || _hasTorch; }
 
-	bool isMonsterinRoom() { return _hasMonster; }
+	bool isMonsterInRoom() { return _hasMonster; }
 
 	void addOpenDoor() { _OpenDoors += 1; }
 
