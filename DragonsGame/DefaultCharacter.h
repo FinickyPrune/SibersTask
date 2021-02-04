@@ -38,6 +38,8 @@ public:
 
 	void eat() override;
 
+	void fight()  override;
+
 	size_t getStepLimit()  override { return _stepLimit; }
 
 	void setStepLimit(size_t c) override  { _stepLimit = c; }

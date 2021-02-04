@@ -4,7 +4,7 @@
 ICommand* Controller::parseCommand(Model* model, bool flag)
 {
 	ICommand* currCommand = nullptr;
-	
+
 	std::string word = getWord();
 
 	if (word == "E" || word == "W" || word == "S" || word == "N")
@@ -28,6 +28,11 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 	{
 		currCommand = new EatCommand();
 	}
+	else if (word == "FIGHT")
+	{
+		currCommand = new FightCommand();
+	}
+
 
 	return currCommand;
 }

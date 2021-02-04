@@ -14,6 +14,8 @@ public:
 
 	virtual void eat() = 0;
 
+	virtual void fight() = 0;
+
 	virtual size_t getStepLimit() = 0;
 
 	virtual void setStepLimit(size_t) = 0;

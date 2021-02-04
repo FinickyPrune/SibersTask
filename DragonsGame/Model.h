@@ -9,33 +9,9 @@
 #include "MoveCommand.h"
 #include "OpenCommand.h"
 #include "EatCommand.h"
+#include "FightCommand.h"
 #include <iostream>
-//#include "Timer.h"
 
-class Timer
-{
-public:
-	Timer() = default;
-
-	void add(std::chrono::milliseconds delay, std::function<void()> callback, bool asynchronous)
-	{
-		{
-			if (asynchronous)
-			{
-				std::thread([=]()
-					{
-						std::this_thread::sleep_for(std::chrono::milliseconds(delay));
-						callback();
-					}).detach();
-			}
-			else
-			{
-				std::this_thread::sleep_for(std::chrono::milliseconds(delay));
-				callback();
-			}
-		}
-	}
-};
 
 class Model
 {
@@ -46,6 +22,7 @@ private:
 	ICommand* _currCommand = nullptr;
 	bool exit = false;
 	bool _check = false;
+	bool _needCommand = true;
 
 public:
 
@@ -67,9 +44,9 @@ public:
 
 	void updateRoom();
 
-	bool getExit() const { return  exit; }
+	bool getNeedCommand() const { return  _needCommand; }
 
-	void setExit(bool value) { exit = value; }
+	void setNeedCommand(bool value) { exit = value; }
 
 	bool getCheck() { return _check; }
 

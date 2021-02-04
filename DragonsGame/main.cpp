@@ -22,6 +22,20 @@ int main()
 		model.executeStep();
 	}
 
+	/*std::thread([=]() {
+		while (true)
+		{
+			console.printInfo();
+			std::this_thread::sleep_for(std::chrono::milliseconds(33));
+		}
+	}).detach();*/
+
+	/*while (true)
+	{
+		model.setCurrCommand(controller.parseCommand(&model, 1));
+		model.executeStep();
+	}*/
+
 	return 0;
 }
 

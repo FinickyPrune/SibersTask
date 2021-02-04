@@ -152,3 +152,11 @@ void DefaultCharacter::eat()
 		}
 	}
 }
+
+void DefaultCharacter::fight()
+{
+	if (_inventory.count("SWORD") != 0)
+	{
+		_currRoom->setMonster(false);
+	}
+}
