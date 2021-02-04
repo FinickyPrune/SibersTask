@@ -1,4 +1,7 @@
 #pragma once
+#include <chrono>
+#include <functional>
+#include <thread>
 #include "Maze.h"
 #include "DefaultCharacter.h"
 #include "DropCommand.h"
@@ -6,6 +9,32 @@
 #include "MoveCommand.h"
 #include "OpenCommand.h"
 #include "EatCommand.h"
+//#include "Timer.h"
+
+class Timer
+{
+public:
+	Timer() = default;
+
+	void add(std::chrono::milliseconds delay, std::function<void()> callback, bool asynchronous)
+	{
+		{
+			if (asynchronous)
+			{
+				std::thread([=]()
+					{
+						std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+						callback();
+					}).detach();
+			}
+			else
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+				callback();
+			}
+		}
+	}
+};
 
 class Model
 {
@@ -42,5 +71,7 @@ public:
 	void setExit(bool value) { exit = value; }
 
 	bool getCheck() { return _check; }
+
+	void monsterAttack();
 };
 

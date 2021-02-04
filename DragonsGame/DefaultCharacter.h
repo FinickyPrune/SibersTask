@@ -9,9 +9,10 @@ private:
 	Room* _currRoom;
 	size_t _stepLimit = 0;
 	Cords _cords;
+	Cords _prevCords;
 
 	bool _hasKey = false;
-	bool _hasTourchlight = false;
+	bool _hasTorch = false;
 	bool _hasSword = false;
 
 	bool _canSee = false;
@@ -47,7 +48,7 @@ public:
 
 	bool getFail() { return _fail; }
 
-	bool getSight() { return _currRoom->canSeeInRoom() || _hasTourchlight; }
+	bool getSight() { return _currRoom->canSeeInRoom() || _hasTorch; }
 
 };
 

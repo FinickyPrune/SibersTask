@@ -12,9 +12,9 @@ void Room::setItem(std::string item, size_t amount)
 	{
 		_items.insert({ item, amount });
 
-		if (item == "TOURCHLIGHT")
+		if (item == "TORCH")
 		{
-			_hasTourchlight = true;
+			_hasTorch = true;
 		}
 	}
 	else
@@ -27,9 +27,9 @@ bool Room::subItem(std::string item, size_t amount)
 {
 	if (_items.count(item) != 0)
 	{
-		if (item == "TOURCHLIGHT" && _items["TOURCHLIGHT"] == 1)
+		if (item == "TORCH" && _items["TORCH"] == 1)
 		{
-			_hasTourchlight = false;
+			_hasTorch = false;
 		}
 		
 		_items[item] -= amount;

@@ -6,13 +6,16 @@ DefaultCharacter::DefaultCharacter(Room* room, size_t limit)
 	_stepLimit = limit;
 	_cords = _currRoom->getCords();
 
-	_canSee = _currRoom->canSeeInRoom() || _hasTourchlight;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
 }
 
 void DefaultCharacter::move(char c)
 {
 	if (_stepLimit != 0)
 	{
+		_prevCords.x = _cords.x;
+		_prevCords.y = _cords.y;
+
 		if (c == 'E' && _currRoom->getDoors()['E'] == true)
 		{
 			_cords.x += 1;
@@ -42,7 +45,7 @@ void DefaultCharacter::move(char c)
 
 void DefaultCharacter::get(std::string item)
 {
-	_canSee = _currRoom->canSeeInRoom() || _hasTourchlight;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
 
 	if (item != "GOLD" && item != "CHEST" && _canSee)
 	{
@@ -58,9 +61,9 @@ void DefaultCharacter::get(std::string item)
 			{
 				_hasSword = true;
 			}
-			if (item == "TOURCHLIGHT")
+			if (item == "TORCH")
 			{
-				_hasTourchlight = true;
+				_hasTorch = true;
 			}
 		}
 		else if (_currRoom->subItem(item, 1))
@@ -85,7 +88,7 @@ void DefaultCharacter::get(std::string item)
 
 void DefaultCharacter::drop(std::string item)
 {
-	_canSee = _currRoom->canSeeInRoom() || _hasTourchlight;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
 	
 	if (_canSee)
 	{
@@ -107,13 +110,13 @@ void DefaultCharacter::drop(std::string item)
 			{
 				_hasSword = false;
 			}
-			if (item == "TOURCHLIGHT")
+			if (item == "TORCH")
 			{
-				_hasTourchlight = false;
+				_hasTorch = false;
 			}
 		}
 	}
-	_canSee = _currRoom->canSeeInRoom() || _hasTourchlight;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
 }
 
 void DefaultCharacter::open()

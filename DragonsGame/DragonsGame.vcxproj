@@ -142,11 +142,11 @@
     <ClCompile Include="ConsoleView.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DefaultCharacter.cpp" />
-    <ClCompile Include="EatCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleView.h" />
@@ -163,6 +163,7 @@
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="OpenCommand.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

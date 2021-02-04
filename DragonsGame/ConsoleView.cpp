@@ -115,6 +115,15 @@ void ConsoleView::roomInfo()
 				std::cout << it->first << " : " << it->second << std::endl;
 			}
 		}
+
+		if (_model->getCharacter()->getRoom()->isMonsterinRoom() == true)
+		{
+			SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Red));
+
+			std::cout << std::endl << "There is an evil TROLL in the room!" << std::endl;
+
+			SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
+		}
 	}
 	else
 	{

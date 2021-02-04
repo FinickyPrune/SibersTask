@@ -18,6 +18,18 @@ void Model::spawnCharacter()
 
 void Model::executeStep()
 {
+	//check if monster in the room
+	//if (yes) 
+	//{
+	//5 sec
+
+	if (_character->getRoom()->isMonsterinRoom() == true)
+	{
+		Timer timer;
+
+		timer.add(std::chrono::milliseconds(6000), monsterAttack, true);
+	}
+
 	if (_currCommand != nullptr)
 	{
 		_currCommand->execute(_character);
@@ -38,6 +50,11 @@ void Model::updateRoom()
 		Room* newRoom = &_maze->getField()[charCords.x][charCords.y];
 		_character->setRoom(newRoom);
 	}
+}
+
+void Model::monsterAttack()
+{
+
 }
 
 

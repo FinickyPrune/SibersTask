@@ -155,10 +155,19 @@ void Maze::generateItems()
 {
 	_field[rand() % _XSize][rand() % _YSize].setItem("CHEST", 1);
 	_field[rand() % _XSize][rand() % _YSize].setItem("KEY", 1);
+	_field[rand() % _XSize][rand() % _YSize].setItem("SWORD", 1);
+	
+	_field[rand() % _XSize][rand() % _YSize].setMonster(true);
+	//_field[rand() % _XSize][rand() % _YSize].setItem("TROLL", 1);
+
+
+	//Room* room = &_field[rand() % _XSize][rand() % _YSize];
+	
+	//room->setMonster(true, true, false, true);
 
 	for (size_t i = 0; i < static_cast<size_t>(_XSize*_YSize/4); i++)
 	{
-		_field[rand() % _XSize][rand() % _YSize].setItem("TOURCHLIGHT",1);
+		_field[rand() % _XSize][rand() % _YSize].setItem("TORCH",1);
 		_field[rand() % _XSize][rand() % _YSize].setDarkRoom();
 		_field[rand() % _XSize][rand() % _YSize].setItem("FOOD", 1);
 		
