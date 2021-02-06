@@ -34,25 +34,25 @@ ICommand* Controller::parseCommand(Model* model, bool flag)
 	}
 
 
-	return currCommand;
+	return currCommand; //COMMAND GOES TO MODEL
 }
 
-const std::string Controller::getWord()
+std::string Controller::getWord()
 {
 	std::string word;
 	std::cin >> word;
-	transform(word.begin(), word.end(), word.begin(), toupper);
+	transform(word.begin(), word.end(), word.begin(), toupper); // NO MATTER WHAT PLAYER USES: UPPER OR LOWERCASE
 	return word;
 }
 
-const size_t Controller::getNumber()
+size_t Controller::getNumber()
 {
 	size_t number;
 	std::cin >> number;
 	return number;
 }
 
-const char Controller::getChar()
+char Controller::getChar()
 {
 	char dir;
 	std::cin >> dir;

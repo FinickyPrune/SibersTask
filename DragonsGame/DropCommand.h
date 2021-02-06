@@ -11,7 +11,7 @@ public:
 
 	virtual ~DropCommand() = default;
 
-	virtual void execute(ICharacter* character) override
+	void execute(ICharacter* character) override
 	{
 		character->drop(_item);
 	}

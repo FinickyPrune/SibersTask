@@ -6,13 +6,13 @@ class DefaultCharacter : public ICharacter
 private:
 
 	std::map<std::string, size_t>  _inventory;
-	Room* _currRoom;
+	Room* _currRoom = nullptr;
 	size_t _stepLimit = 0;
 	Cords _cords;
 	char _lastDoor;
 
 	bool _hasKey = false;
-	bool _hasTorch = false;
+	bool _hasTorch = false; //FOR QUICK CHECK IF PLAYER HAS THESE ITEMS
 	bool _hasSword = false;
 
 	bool _canSee = false;
@@ -40,31 +40,31 @@ public:
 
 	void fight()  override;
 
-	size_t getStepLimit()  override { return _stepLimit; }
+	size_t getStepLimit() const override { return _stepLimit; }
 
 	void setStepLimit(size_t c) override  { _stepLimit = c; }
 
 	void setReaction(bool a) override { _reacted = a; }
 
-	bool getReaction() override { return _reacted; }
+	bool getReaction() const override { return _reacted; }
 
 	Room* getRoom() const override { return _currRoom; }
 
 	void setRoom(Room* room) override { _currRoom = room; };
 
-	Cords getCords() override { return _cords; }
+	Cords getCords() const override { return _cords; }
 
 	void setCords(Cords c)  override { _cords.x = c.x; _cords.y = c.y; }
 
 	void setLastDoor(char d) override { _lastDoor = d; }
 
-	char getLastDoor() { return _lastDoor; }
+	char getLastDoor() const { return _lastDoor; }
 
-	bool getWin() { return _win; }
+	bool getWin() const override { return _win; }
 
-	bool getFail() { return _fail; }
+	bool getFail() const override { return _fail; }
 
-	bool getSight() { return _currRoom->canSeeInRoom() || _hasTorch; }
+	bool getSight() const override { return _currRoom->canSeeInRoom() || _hasTorch; }
 
 };
 

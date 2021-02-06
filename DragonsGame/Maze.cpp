@@ -35,6 +35,8 @@ Maze::~Maze()
 void Maze::mazeGeneration()
 {
 
+	//TREE ALGORYTHM FOR MAZE GENERATION
+
 	bool** visited = new bool* [_XSize];
 
 	for (size_t i = 0; i < _XSize; i++)
@@ -47,23 +49,23 @@ void Maze::mazeGeneration()
 		}
 	}
 
-	size_t startX = rand() % _XSize;
+	size_t startX = rand() % _XSize; //CHOOSE START POINT
 	size_t startY = rand() % _YSize;
 
-	visited[startX][startY] = true;
+	visited[startX][startY] = true; //MARK AS VISITED
 
 	std::stack<Room> path;
-	path.push(_field[startX][startY]);
+	path.push(_field[startX][startY]); //ADD ON STACK
 
 	while (!path.empty())
 	{
 		_minSteps += 1;
 
-		Room room = path.top();
+		Room room = path.top(); //WHILE PATH IS NOT EMPTY CHOOSE TOP ROOM
 
 		Cords roomCords = room.getCords();
 
-		std::vector<Room> nextStep;
+		std::vector<Room> nextStep; // ADD TO NEXTSTEP ALL NEARBY NOT VISITED ROOMS
 
 		if (roomCords.x > 0 && (visited[roomCords.x - 1][roomCords.y] == false))
 		{
@@ -87,11 +89,11 @@ void Maze::mazeGeneration()
 
 		if (!nextStep.empty())
 		{
-			Room next = nextStep[rand() % nextStep.size()];
+			Room next = nextStep[rand() % nextStep.size()]; //CHOOSE RANDOM ROOM FROM NEXTSTEP
 
 			Cords nextCords = next.getCords();
 
-			if (nextCords.x != roomCords.x)
+			if (nextCords.x != roomCords.x) //AND OPEN DOOR BETWEEN CURRENT AND CHOSEN ROOM
 			{
 				if (roomCords.x > nextCords.x)
 				{
@@ -133,13 +135,13 @@ void Maze::mazeGeneration()
 				}
 			}
 
-			visited[nextCords.x][nextCords.y] = true;
-			path.push(next);
+			visited[nextCords.x][nextCords.y] = true; //MARK ROOM AS VISITED
+			path.push(next); // AND ADD IT ON STACK
 		}
 
 		else
 		{
-			path.pop();
+			path.pop(); //IF ROOM HAS NO NOT VISITED NEARBY ROOMS
 		}
 	}
 
@@ -155,22 +157,14 @@ void Maze::generateItems()
 {
 	_field[rand() % _XSize][rand() % _YSize].setItem("CHEST", 1);
 	_field[rand() % _XSize][rand() % _YSize].setItem("KEY", 1);
-	_field[rand() % _XSize][rand() % _YSize].setItem("SWORD", 1);
-	
+	_field[rand() % _XSize][rand() % _YSize].setItem("SWORD", 1);	
 	_field[rand() % _XSize][rand() % _YSize].setMonster(true);
-	//_field[rand() % _XSize][rand() % _YSize].setItem("TROLL", 1);
-
-
-	//Room* room = &_field[rand() % _XSize][rand() % _YSize];
 	
-	//room->setMonster(true, true, false, true);
-
 	for (size_t i = 0; i < static_cast<size_t>(_XSize*_YSize/4); i++)
 	{
 		_field[rand() % _XSize][rand() % _YSize].setItem("TORCH",1);
 		_field[rand() % _XSize][rand() % _YSize].setDarkRoom();
-		_field[rand() % _XSize][rand() % _YSize].setItem("FOOD", 1);
-		
+		_field[rand() % _XSize][rand() % _YSize].setItem("FOOD", 1);		
 		_field[rand() % _XSize][rand() % _YSize].setItem("GOLD", rand()%10);
 	}
 }

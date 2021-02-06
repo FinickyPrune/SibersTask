@@ -8,13 +8,6 @@ struct Cords
 	size_t y = 0;
 };
 
-//struct Monster
-//{
-//	bool alive  = false;
-//	bool sleeping = true;
-//	bool attacking = false;
-//};
-
 class Room
 {
 private:
@@ -56,18 +49,7 @@ public:
 
 	bool subItem(std::string, size_t);
 
-	//Monster getMonster() { return _monster; }
-
 	void setMonster(bool a) { _hasMonster = a; }
-
-
-	/*void setMonster(bool has, bool alive, bool attack, bool sleep)
-	{
-		_hasMonster = has;
-		_monster.alive = alive;
-		_monster.attacking = attack;
-		_monster.sleeping = sleep;
-	}*/
 
 	Cords getCords() const { return _cords; }
 	

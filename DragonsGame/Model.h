@@ -2,16 +2,10 @@
 #include <chrono>
 #include <functional>
 #include <thread>
+#include <iostream>
 #include "Maze.h"
 #include "DefaultCharacter.h"
-#include "DropCommand.h"
-#include "GetCommand.h"
-#include "MoveCommand.h"
-#include "OpenCommand.h"
-#include "EatCommand.h"
-#include "FightCommand.h"
-#include <iostream>
-
+#include "Commands.h"
 
 class Model
 {
@@ -20,16 +14,18 @@ private:
 	Maze* _maze = nullptr;
 	ICharacter* _character = nullptr;
 	ICommand* _currCommand = nullptr;
+	
 	bool exit = false;
 	bool _check = false;
-	bool _needCommand = true;
 
 public:
 
 	Model() = default;
+	
 	virtual ~Model();
 
 	void generateMaze(Cords);
+	
 	void spawnCharacter();
 
 	Maze* getMaze() const { return _maze; }
@@ -44,16 +40,16 @@ public:
 
 	void updateRoom();
 
-	bool getNeedCommand() const { return  _needCommand; }
-
 	void setNeedCommand(bool value) { exit = value; }
 
-	bool getCheck() { return _check; }
+	bool getCheck()  const { return _check; }
 
 	void monsterAttack();
 
 	void delayMonsterAttack(std::chrono::milliseconds delay);
 
 	void executeCommand();
+
+	void randomPlot();
 };
 

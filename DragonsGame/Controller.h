@@ -14,11 +14,11 @@ public:
 
 	ICommand* parseCommand(Model* model, bool flag);
 
-	const std::string getWord();
+	std::string getWord();
 
-	const size_t getNumber();
+	size_t getNumber();
 
-	const char getChar();
+	char getChar();
 
 	Cords getMazeSizes();
 

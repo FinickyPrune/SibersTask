@@ -10,7 +10,7 @@ public:
 
 	virtual ~MoveCommand() = default;
 
-	virtual void execute(ICharacter* character) override
+	void execute(ICharacter* character) override
 	{
 		character->move(_direction);
 	}

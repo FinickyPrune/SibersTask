@@ -11,7 +11,7 @@ public:
 
 	virtual ~GetCommand() = default;
 
-	virtual void execute(ICharacter* character) override
+	void execute(ICharacter* character) override
 	{
 		character->get(_item);
 	}

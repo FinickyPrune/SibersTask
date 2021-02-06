@@ -23,60 +23,14 @@ void Model::spawnCharacter()
 	_character = new DefaultCharacter(room, _maze->getMinSteps());
 }
 
-void Model::executeStep()
+void Model::executeCommand()
 {
-	if (_character->getRoom()->isMonsterInRoom() == true && _currCommand != nullptr)
-	{
-		_character->setReaction(true);
-	
-		size_t chance = rand() % 3;
-
-		switch (chance = 0)
-		{
-		case 0:
-		{
-			executeCommand();
-			break;
-		}
-		case 1:
-		{
-			_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
-			executeCommand();
-
-			break;
-		}
-		case 2:
-		{
-			_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
-			_character->move(_character->getLastDoor());
-
-			break;
-		}
-		default:
-			break;
-		}
-
-
-	}
-
-	if (_currCommand != nullptr)
-	{
-		executeCommand();
-	}
-
-	_check = (_character->getWin() || _character->getFail());
-	
-	updateRoom();
-
-	if (_character->getRoom()->isMonsterInRoom() == true)
-	{
-
-		delayMonsterAttack(std::chrono::milliseconds(5000));
-		
-	}
+	_currCommand->execute(_character);
+	delete _currCommand;
+	_currCommand = nullptr;
 }
 
-void Model::updateRoom()
+void Model::updateRoom() //MODEL GIVES CHARACTER ROOM POINTER
 {
 	Cords charCords = _character->getCords();
 	Cords roomCords = _character->getRoom()->getCords();
@@ -88,17 +42,49 @@ void Model::updateRoom()
 	}
 }
 
+void Model::randomPlot()
+{
+	_character->setReaction(true);
+
+	size_t chance = rand() % 3;
+
+	switch (chance = 0)
+	{
+	case 0:
+	{
+		executeCommand();
+		break;
+	}
+	case 1:
+	{
+		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+		executeCommand();
+
+		break;
+	}
+	case 2:
+	{
+		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+		_character->move(_character->getLastDoor());
+
+		break;
+	}
+	default:
+		break;
+	}
+
+}
+
 void Model::monsterAttack()
 {
 	if (_character->getReaction() == false)
 	{
-		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
-		_character->move(_character->getLastDoor());
-		//_needCommand = false;
+		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9)); //DAMAGE CHARACTER
+		_character->move(_character->getLastDoor()); //THROWS CHARACTER TO PREVIOUS ROOM
 	}
 }
 
-void Model::delayMonsterAttack(std::chrono::milliseconds delay)
+void Model::delayMonsterAttack(std::chrono::milliseconds delay) //MONSTER WAITS IN A NEW THREAD
 {
 	std::thread([=]()
 		{
@@ -109,14 +95,30 @@ void Model::delayMonsterAttack(std::chrono::milliseconds delay)
 
 
 		}).detach();
-		
+
 }
 
-void Model::executeCommand()
+void Model::executeStep()
 {
-	_currCommand->execute(_character);
-	delete _currCommand;
-	_currCommand = nullptr;
+	if ((_character->getRoom()->isMonsterInRoom() == true &&_character->getSight()) && _currCommand != nullptr) //IF MONSTER IN THE ROOM AND PLAYER REACTED
+	{                                                                                                           //MONSTER "SLEEPS" IF PLAYER CAN'T SEE IT
+		randomPlot();
+	}
+
+	if (_currCommand != nullptr) //DEFAULT EXECUTION
+	{
+		executeCommand();
+	}
+
+	_check = (_character->getWin() || _character->getFail()); //CHECK IF GAME ENDS
+	
+	updateRoom(); //IN CASE PLAYER MOVED
+
+	if (_character->getRoom()->isMonsterInRoom() == true && _character->getSight()) //IF MONSTER IN THE ROOM
+	{
+		delayMonsterAttack(std::chrono::milliseconds(5000)); //MONSTER WAITS FOR PLAYER REACTION
+	}
 }
+
 
 

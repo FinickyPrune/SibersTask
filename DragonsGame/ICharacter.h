@@ -1,6 +1,9 @@
 #pragma once
 #include "Room.h"
-class ICharacter
+
+// CHARACTER INTERFACE
+
+class ICharacter 
 {
 public:
 
@@ -16,30 +19,30 @@ public:
 
 	virtual void fight() = 0;
 
-	virtual size_t getStepLimit() = 0;
+	virtual size_t getStepLimit() const = 0;
 
 	virtual void setStepLimit(size_t) = 0;
 
 	virtual void setReaction(bool) = 0;
 
-	virtual bool getReaction() = 0;
+	virtual bool getReaction() const = 0;
 
 	virtual Room* getRoom() const = 0;
 
 	virtual void setRoom(Room*) = 0;
 
-	virtual Cords getCords() = 0;
+	virtual Cords getCords() const = 0;
 
 	virtual void setCords(Cords) = 0;
 
-	virtual char getLastDoor() = 0;
+	virtual char getLastDoor() const = 0;
 
 	virtual void setLastDoor(char) = 0;
 
-	virtual bool getWin() = 0;
+	virtual bool getWin() const = 0;
 
-	virtual bool getFail() = 0;
+	virtual bool getFail() const = 0;
 
-	virtual bool getSight() = 0;
+	virtual bool getSight() const = 0;
 };
 

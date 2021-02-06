@@ -50,11 +50,11 @@ void DefaultCharacter::move(char c)
 
 void DefaultCharacter::get(std::string item)
 {
-	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch; //PLAYER MUST HAVE ABILITY TO SEE IN CASE HE WANTS TO GET ITEMS
 
 	if (item != "GOLD" && item != "CHEST" && _canSee)
 	{
-		if (_inventory.count(item) == 0 && _currRoom->subItem(item, 1))
+		if (_inventory.count(item) == 0 && _currRoom->subItem(item, 1)) //IF PLAYER DOESNT HAVE THIS OBJECT BEFORE
 		{
 			_inventory.insert({ item,1 });
 
@@ -71,12 +71,12 @@ void DefaultCharacter::get(std::string item)
 				_hasTorch = true;
 			}
 		}
-		else if (_currRoom->subItem(item, 1))
+		else if (_currRoom->subItem(item, 1)) //IF PLAYER ALREADY HAS OBJECT OF THIS TYPE
 		{
 			_inventory[item] += 1;
 		}
 	}
-	else if (item == "GOLD" && _canSee)
+	else if (item == "GOLD" && _canSee) //IF ITEM IS GOLD GRAB ALL COINS WITH 1 "GET" COMMAND
 	{
 		if (_inventory.count(item) == 0 && _currRoom->subItem(item, 1))
 		{
@@ -94,7 +94,7 @@ void DefaultCharacter::get(std::string item)
 
 void DefaultCharacter::drop(std::string item)
 {
-	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch; //PLAYER MUST HAVE ABILITY TO SEE IN CASE HE WANTS TO DROP ITEMS
 	
 	if (_canSee)
 	{
@@ -110,7 +110,7 @@ void DefaultCharacter::drop(std::string item)
 		}
 		if (_inventory[item] == 0)
 		{
-			_inventory.erase(item);
+			_inventory.erase(item); //ERASE THIS TYPE OF OBJECT FROM INVENTORY
 
 			if (item == "SWORD")
 			{
@@ -122,11 +122,13 @@ void DefaultCharacter::drop(std::string item)
 			}
 		}
 	}
-	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch; //UPDATE INFO ABOUT ABILITY TO SEE IN CASE PLAYER DROP TORCH
 }
 
 void DefaultCharacter::open()
 {
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
+	
 	if (_inventory.count("KEY") != 0 && _currRoom->getItems()["CHEST"] != 0 && _canSee)
 	{
 		_win = true;
@@ -135,13 +137,15 @@ void DefaultCharacter::open()
 
 void DefaultCharacter::eat()
 {
-	if (_currRoom->getItems().count("FOOD") != 0)
+	_canSee = _currRoom->canSeeInRoom() || _hasTorch;
+
+	if (_currRoom->getItems().count("FOOD") != 0 && _canSee) //IF FOOD IS IN ROOM
 	{
 		_currRoom->subItem("FOOD", 1);
-		_stepLimit = static_cast<size_t>(_stepLimit * 1.2);
+		_stepLimit = static_cast<size_t>(_stepLimit * 1.2); //I DECIDED TO INCREASE STEPLIMIT ON 20%
 
 	}
-	else if (_inventory.count("FOOD") != 0)
+	else if (_inventory.count("FOOD") != 0 && _canSee) //IF FOOD IS IN INVENTORY
 	{
 		_inventory["FOOD"] -= 1;
 		_stepLimit = static_cast<size_t>(_stepLimit * 1.2);

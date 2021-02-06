@@ -7,7 +7,7 @@ public:
 
 	FightCommand() = default;
 
-	~FightCommand() = default;
+	virtual ~FightCommand() = default;
 
 	void execute(ICharacter* character) override
 	{
