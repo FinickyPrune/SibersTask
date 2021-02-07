@@ -14,6 +14,7 @@ int main()
 	console.printStartInfo();
 	model.generateMaze(controller.getMazeSizes());
 	model.spawnCharacter();
+	console.printStepLimitInfo();
 
 	while (true)
 	{

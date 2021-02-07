@@ -27,6 +27,8 @@ public:
 
     void printStartInfo() override;
 
+    void printStepLimitInfo() override;
+
     void darkRoomMessage() override;
 
     void winMessage() override;

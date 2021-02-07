@@ -37,6 +37,19 @@ void ConsoleView::printStartInfo()
 	std::cout << "Enter maze sizes ([x_size] [y_size]): ";
 }
 
+void ConsoleView::printStepLimitInfo()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
+
+	size_t stepLimit = _model->getCharacter()->getStepLimit();
+
+	std::cout << "Your step limit for this game: " << stepLimit << std::endl;
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+}
+
 void ConsoleView::darkRoomMessage()
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

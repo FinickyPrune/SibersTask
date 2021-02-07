@@ -10,6 +10,8 @@ public:
 	
 	virtual void printStartInfo() = 0;
 
+	virtual void printStepLimitInfo() = 0;
+
 	virtual void darkRoomMessage() = 0;
 
 	virtual void winMessage() = 0;
