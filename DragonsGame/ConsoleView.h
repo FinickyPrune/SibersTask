@@ -31,6 +31,8 @@ public:
 
     void darkRoomMessage() override;
 
+    void damageMessage() override;
+
     void winMessage() override;
 
     void failMessage() override;

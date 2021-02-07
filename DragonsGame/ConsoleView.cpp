@@ -59,6 +59,17 @@ void ConsoleView::darkRoomMessage()
 	std::cout << "Can't see anything in this dark place!" << std::endl;
 }
 
+void ConsoleView::damageMessage()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Red));
+
+	std::cout << "You were damaged by TROLL!" << std::endl;
+
+	SetConsoleTextAttribute(hConsole, (WORD)((Black << 4) | Green));
+}
+
 void ConsoleView::winMessage()
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -149,6 +160,11 @@ void ConsoleView::roomInfo()
 		if (_model->getCharacter()->getRoom()->isMonsterInRoom() == true) //IF MONSTER IN THE ROOM
 		{
 			MonsterMessage();
+		}
+
+		if (_model->getDamage())
+		{
+			damageMessage();
 		}
 	}
 	else //IF DARK ROOM

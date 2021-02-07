@@ -14,6 +14,8 @@ public:
 
 	virtual void darkRoomMessage() = 0;
 
+	virtual void damageMessage() = 0;
+
 	virtual void winMessage() = 0;
 
 	virtual void failMessage() = 0;

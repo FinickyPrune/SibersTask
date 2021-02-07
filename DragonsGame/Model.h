@@ -17,6 +17,7 @@ private:
 	
 	bool exit = false;
 	bool _check = false;
+	bool _damage = false;
 
 public:
 
@@ -34,6 +35,8 @@ public:
 
 	ICommand* getCurrCommand() const { return _currCommand; }
 	
+	bool getDamage() const { return _damage; }
+
 	void setCurrCommand(ICommand* ptr) { _currCommand = ptr; }
 
 	void executeStep();

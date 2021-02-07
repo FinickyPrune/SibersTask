@@ -48,7 +48,7 @@ void Model::randomPlot()
 
 	size_t chance = rand() % 3;
 
-	switch (chance = 0)
+	switch (chance)
 	{
 	case 0:
 	{
@@ -58,6 +58,7 @@ void Model::randomPlot()
 	case 1:
 	{
 		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+		_damage = true;
 		executeCommand();
 
 		break;
@@ -65,6 +66,7 @@ void Model::randomPlot()
 	case 2:
 	{
 		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9));
+		_damage = true;
 		_character->move(_character->getLastDoor());
 
 		break;
@@ -80,6 +82,7 @@ void Model::monsterAttack()
 	if (_character->getReaction() == false)
 	{
 		_character->setStepLimit(static_cast<size_t>(_character->getStepLimit() * 0.9)); //DAMAGE CHARACTER
+		_damage = true;
 		_character->move(_character->getLastDoor()); //THROWS CHARACTER TO PREVIOUS ROOM
 	}
 }
@@ -100,6 +103,8 @@ void Model::delayMonsterAttack(std::chrono::milliseconds delay) //MONSTER WAITS 
 
 void Model::executeStep()
 {
+	_damage = false;
+	
 	if ((_character->getRoom()->isMonsterInRoom() == true &&_character->getSight()) && _currCommand != nullptr) //IF MONSTER IN THE ROOM AND PLAYER REACTED
 	{                                                                                                           //MONSTER "SLEEPS" IF PLAYER CAN'T SEE IT
 		randomPlot();
