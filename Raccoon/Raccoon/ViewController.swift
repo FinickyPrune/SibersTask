@@ -31,7 +31,6 @@ class ViewController: UIViewController {
         
         mainTable.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         //tableData = (0..<dataSize).map{_ in Int.random(in: 0..<100)}
-        
         addNewButton.setTitle(addNewbuttonTitle, for: .normal)
         
     }
@@ -50,7 +49,7 @@ class ViewController: UIViewController {
                 guard let indexPath = pressedCellIndexPath else {
                     return
                 }
-                viewController.setNumberInputValue(value: tableData[indexPath.row])
+                viewController.setNumberInputValue(value: viewModel.tableData[indexPath.row])
             }
         }
     }
@@ -60,13 +59,13 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData.count
+        return viewModel.tableData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel?.text = String(tableData[indexPath.row])
+        cell.textLabel?.text = viewModel.getStringValue(at: indexPath.row)
         return cell
     }
     
@@ -83,7 +82,7 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: {
             (_, _, completion) in
-            self.tableData.remove(at: indexPath.row)
+            self.viewModel.deleteCellFromData(at: indexPath.row)
             self.mainTable.deleteRows(at: [indexPath], with: .right)
          })
         
@@ -100,12 +99,12 @@ extension ViewController: EditorDelegate {
             guard let indexPath = pressedCellIndexPath else {
                 return
             }
-            tableData[indexPath.row] = value
+            viewModel.updateCellInData(at: indexPath.row, with: value)
             mainTable.reloadRows(at: [indexPath], with: .automatic)
             sender.navigationController?.popViewController(animated: true)
         }
         else {
-            tableData.insert(value, at: 0)
+            viewModel.insertCellInData(at: 0, with: value)
             mainTable.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             sender.navigationController?.popViewController(animated: true)
         }
