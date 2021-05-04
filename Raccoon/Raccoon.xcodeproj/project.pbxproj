@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		965BD3C526412F8000CFBCC5 /* Array+safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965BD3C426412F8000CFBCC5 /* Array+safe.swift */; };
 		96743582263AC32700914AEB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96743581263AC32700914AEB /* ViewModel.swift */; };
+		969AEF3326413B83009B9DBA /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969AEF3226413B83009B9DBA /* EditorViewModel.swift */; };
+		969AEF362641501F009B9DBA /* BasicDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969AEF352641501F009B9DBA /* BasicDataManager.swift */; };
 		96EF8BE92632E0D50089AC5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EF8BE82632E0D50089AC5A /* AppDelegate.swift */; };
 		96EF8BEB2632E0D50089AC5A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EF8BEA2632E0D50089AC5A /* SceneDelegate.swift */; };
 		96EF8BED2632E0D50089AC5A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EF8BEC2632E0D50089AC5A /* ViewController.swift */; };
@@ -18,7 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		965BD3C426412F8000CFBCC5 /* Array+safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safe.swift"; sourceTree = "<group>"; };
 		96743581263AC32700914AEB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		969AEF3226413B83009B9DBA /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		969AEF352641501F009B9DBA /* BasicDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDataManager.swift; sourceTree = "<group>"; };
 		96EF8BE52632E0D50089AC5A /* Raccoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raccoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96EF8BE82632E0D50089AC5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96EF8BEA2632E0D50089AC5A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +47,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		965BD3C126412EC800CFBCC5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				96F2F29F263815310055FDC0 /* EditorViewController.swift */,
+				96EF8BEC2632E0D50089AC5A /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		965BD3C226412EF900CFBCC5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				96743581263AC32700914AEB /* ViewModel.swift */,
+				969AEF3226413B83009B9DBA /* EditorViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		965BD3C326412F3300CFBCC5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				965BD3C426412F8000CFBCC5 /* Array+safe.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		96EF8BDC2632E0D50089AC5A = {
 			isa = PBXGroup;
 			children = (
@@ -60,15 +92,16 @@
 		96EF8BE72632E0D50089AC5A /* Raccoon */ = {
 			isa = PBXGroup;
 			children = (
+				965BD3C326412F3300CFBCC5 /* Extensions */,
+				965BD3C226412EF900CFBCC5 /* ViewModels */,
+				965BD3C126412EC800CFBCC5 /* ViewControllers */,
 				96EF8BE82632E0D50089AC5A /* AppDelegate.swift */,
 				96EF8BEA2632E0D50089AC5A /* SceneDelegate.swift */,
-				96EF8BEC2632E0D50089AC5A /* ViewController.swift */,
 				96EF8BEE2632E0D50089AC5A /* Main.storyboard */,
 				96EF8BF12632E0D60089AC5A /* Assets.xcassets */,
 				96EF8BF32632E0D60089AC5A /* LaunchScreen.storyboard */,
 				96EF8BF62632E0D60089AC5A /* Info.plist */,
-				96F2F29F263815310055FDC0 /* EditorViewController.swift */,
-				96743581263AC32700914AEB /* ViewModel.swift */,
+				969AEF352641501F009B9DBA /* BasicDataManager.swift */,
 			);
 			path = Raccoon;
 			sourceTree = "<group>";
@@ -143,6 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969AEF3326413B83009B9DBA /* EditorViewModel.swift in Sources */,
+				969AEF362641501F009B9DBA /* BasicDataManager.swift in Sources */,
+				965BD3C526412F8000CFBCC5 /* Array+safe.swift in Sources */,
 				96743582263AC32700914AEB /* ViewModel.swift in Sources */,
 				96EF8BED2632E0D50089AC5A /* ViewController.swift in Sources */,
 				96EF8BE92632E0D50089AC5A /* AppDelegate.swift in Sources */,

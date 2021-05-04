@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EditorDelegate: class {
-    func didSubmit(_ sender: EditorViewController, value: Int)
+    func editorViewController(_ sender: EditorViewController, didSubmitValue value: Int)
 }
 
 class EditorViewController: UIViewController {
@@ -20,31 +20,23 @@ class EditorViewController: UIViewController {
     private var tmpNumber: Int?
     
     weak var delegate: EditorDelegate?
-    
-    func setNumberInputValue(value: Int) {
-        tmpNumber = value
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let tmpNumber = tmpNumber {
-            numberInput.text = String(tmpNumber)
-        }
-    }
+    var editorViewModel: EditorViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         saveButton.setTitle(saveButtonTitle, for: .normal)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: saveButtonTitle, style: .plain, target: self, action: #selector(saveBarButtonPressed))
-        
+        if let number = editorViewModel?.number {
+            numberInput.text = String(number)
+        }
     }
     
     private func inputHandler(){
-        guard let newNumberString = numberInput.text, let newNumber = Int(newNumberString) else {
+        guard let newNumberString = numberInput.text,
+              let newNumber = Int(newNumberString) else {
             return
         }
-        delegate?.didSubmit(self, value: newNumber)
+        editorViewModel?.manageNewNumber(newNumber)
     }
     
     @IBAction private func saveButtonPressed(_ sender: Any?) {

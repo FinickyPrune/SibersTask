@@ -11,47 +11,26 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var mainTable: UITableView!
     @IBOutlet private weak var addNewButton: UIButton!
-    
-    //private var tableData: [Int] = []
-    //private let dataSize = 100
+
     private var viewModel: ViewModel = ViewModel()
     
     private let cellIdentifier = "DefaultCell"
     private let addNewbuttonTitle = "Add New"
     private let tableName = "Table"
-    
-    private var isEditingCell = false
-    private var pressedCellIndexPath: IndexPath?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title  = tableName
         mainTable.dataSource = self
         mainTable.delegate = self
-        
+        viewModel.delegate = self
         mainTable.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        //tableData = (0..<dataSize).map{_ in Int.random(in: 0..<100)}
         addNewButton.setTitle(addNewbuttonTitle, for: .normal)
         
     }
     
     @IBAction private func buttonDidPressed(_ sender: Any?) {
-        isEditingCell = false
-        createEditorController(withOldValue: false)
-    }
-    
-    private func createEditorController(withOldValue flag: Bool ) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let viewController = storyboard.instantiateViewController(identifier: "EditorViewController") as? EditorViewController {
-            viewController.delegate = self
-            navigationController?.pushViewController(viewController, animated: true)
-            if flag {
-                guard let indexPath = pressedCellIndexPath else {
-                    return
-                }
-                viewController.setNumberInputValue(value: viewModel.tableData[indexPath.row])
-            }
-        }
+        viewModel.addButtonPressed()
     }
     
 }
@@ -59,7 +38,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.tableData.count
+        return viewModel.getDataCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,16 +53,13 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        isEditingCell = true
-        pressedCellIndexPath = indexPath
-        createEditorController(withOldValue: true)
+        viewModel.didSelectValue(at: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: {
-            (_, _, completion) in
-            self.viewModel.deleteCellFromData(at: indexPath.row)
-            self.mainTable.deleteRows(at: [indexPath], with: .right)
+            [weak self] (_, _, completion)  in
+            self?.viewModel.removeFromData(at: indexPath.row)
          })
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -94,20 +70,45 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: EditorDelegate {
     
-    func didSubmit(_ sender: EditorViewController, value: Int) {
-        if (isEditingCell) {
-            guard let indexPath = pressedCellIndexPath else {
-                return
-            }
-            viewModel.updateCellInData(at: indexPath.row, with: value)
-            mainTable.reloadRows(at: [indexPath], with: .automatic)
-            sender.navigationController?.popViewController(animated: true)
+    func editorViewController(_ sender: EditorViewController, didSubmitValue: Int) {
+        viewModel.didReceiveNewValue(didSubmitValue)
+        sender.navigationController?.popViewController(animated: true)
+    }
+    
+}
+
+extension ViewController: ViewModelDelegate {
+    
+    func deleteCell(sender: ViewModel, at index: Int) {
+        self.mainTable.deleteRows(at: [IndexPath(row: index, section: 0)], with: .right)
+    }
+    
+    func updateCell(sender: ViewModel, at index: Int) {
+        mainTable.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    }
+    
+    func insertCell(sender: ViewModel, at index: Int) {
+        mainTable.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    }
+    
+    func createEditorController(sender: ViewModel, with value: Int?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let viewController = storyboard.instantiateViewController(identifier: "EditorViewController") as? EditorViewController {
+            viewController.delegate = self
+            navigationController?.pushViewController(viewController, animated: true)
+            let editorVM = EditorViewModel(value)
+            editorVM.delegate = self
+            viewController.editorViewModel = editorVM
         }
-        else {
-            viewModel.insertCellInData(at: 0, with: value)
-            mainTable.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-            sender.navigationController?.popViewController(animated: true)
-        }
+    }
+    
+}
+
+extension ViewController: EditorViewModelDelegate {
+    
+    func didSubmitValue(_ seder: EditorViewModel, value: Int) {
+        navigationController?.popViewController(animated: true)
+        viewModel.didReceiveNewValue(value)
     }
     
 }
