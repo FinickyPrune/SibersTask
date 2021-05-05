@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol EditorDelegate: class {
-    func editorViewController(_ sender: EditorViewController, didSubmitValue value: Int)
-}
-
 class EditorViewController: UIViewController {
     
     @IBOutlet private weak var saveButton: UIButton!
@@ -19,7 +15,6 @@ class EditorViewController: UIViewController {
     private let saveButtonTitle = "Save"
     private var tmpNumber: Int?
     
-    weak var delegate: EditorDelegate?
     var editorViewModel: EditorViewModel?
     
     override func viewDidLoad() {

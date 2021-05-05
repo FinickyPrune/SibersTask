@@ -8,40 +8,46 @@
 import Foundation
 
 
-class BasicDataManager {
+struct User: Codable {
     
-    private var data: [Int] = []
+    var userId: String
+    var id: String
+    var title: String
+    var body: String
     
+}
+
+class NetworkDataManager {
+    
+    private var userArray: [User] = []
     
     init() {
-        data = (0..<100).map{_ in Int.random(in: 0..<100)}
+        
+        
     }
     
 }
 
-extension BasicDataManager: DataManager {
+extension NetworkDataManager: DataManager {
  
     func getStringValue(at index: Int) -> String {
-        guard let intData = data[safe: index] else {
-            fatalError("Index out of bounds.")
-        }
-        return String(intData)
+        return userArray[index].title
     }
     
     func getDataCount() -> Int{
-        return data.count
+        return userArray.count
     }
  
     func removeValue(at index: Int) {
-        data.remove(at: index)
+        
     }
     
     func insertValue(_ value: Int, at index: Int) {
-        data.insert(value, at: index)
+        
     }
     
     func updateValue(for value: Int, at index: Int) {
-        data[index] = value
+        
     }
     
 

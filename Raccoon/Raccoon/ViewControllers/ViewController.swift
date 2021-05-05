@@ -68,15 +68,6 @@ extension ViewController: UITableViewDelegate {
     }  
 }
 
-extension ViewController: EditorDelegate {
-    
-    func editorViewController(_ sender: EditorViewController, didSubmitValue: Int) {
-        viewModel.didReceiveNewValue(didSubmitValue)
-        sender.navigationController?.popViewController(animated: true)
-    }
-    
-}
-
 extension ViewController: ViewModelDelegate {
     
     func deleteCell(sender: ViewModel, at index: Int) {
@@ -94,7 +85,6 @@ extension ViewController: ViewModelDelegate {
     func createEditorController(sender: ViewModel, with value: Int?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let viewController = storyboard.instantiateViewController(identifier: "EditorViewController") as? EditorViewController {
-            viewController.delegate = self
             navigationController?.pushViewController(viewController, animated: true)
             let editorVM = EditorViewModel(value)
             editorVM.delegate = self
