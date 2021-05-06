@@ -11,7 +11,8 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var mainTable: UITableView!
     @IBOutlet private weak var addNewButton: UIButton!
-
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    
     private var viewModel: ViewModel = ViewModel()
     
     private let cellIdentifier = "DefaultCell"
@@ -20,13 +21,23 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingIndicator.startAnimating()
         title  = tableName
         mainTable.dataSource = self
         mainTable.delegate = self
         viewModel.delegate = self
+        
+        self.viewModel.fetchData() {
+            
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+                self.mainTable.reloadData()
+            }
+            
+        }
+        
         mainTable.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         addNewButton.setTitle(addNewbuttonTitle, for: .normal)
-        
     }
     
     @IBAction private func buttonDidPressed(_ sender: Any?) {
@@ -82,7 +93,7 @@ extension ViewController: ViewModelDelegate {
         mainTable.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
     
-    func createEditorController(sender: ViewModel, with value: Int?) {
+    func createEditorController(sender: ViewModel, with value: String?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let viewController = storyboard.instantiateViewController(identifier: "EditorViewController") as? EditorViewController {
             navigationController?.pushViewController(viewController, animated: true)
@@ -96,7 +107,7 @@ extension ViewController: ViewModelDelegate {
 
 extension ViewController: EditorViewModelDelegate {
     
-    func didSubmitValue(_ seder: EditorViewModel, value: Int) {
+    func didSubmitValue<T>(_ seder: EditorViewModel, value: T) {
         navigationController?.popViewController(animated: true)
         viewModel.didReceiveNewValue(value)
     }

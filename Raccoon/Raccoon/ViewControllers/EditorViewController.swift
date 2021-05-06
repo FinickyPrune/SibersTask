@@ -10,7 +10,7 @@ import UIKit
 class EditorViewController: UIViewController {
     
     @IBOutlet private weak var saveButton: UIButton!
-    @IBOutlet private weak var numberInput: UITextField!
+    @IBOutlet private weak var stringInput: UITextField!
     
     private let saveButtonTitle = "Save"
     private var tmpNumber: Int?
@@ -21,17 +21,16 @@ class EditorViewController: UIViewController {
         super.viewDidLoad()
         saveButton.setTitle(saveButtonTitle, for: .normal)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: saveButtonTitle, style: .plain, target: self, action: #selector(saveBarButtonPressed))
-        if let number = editorViewModel?.number {
-            numberInput.text = String(number)
+        if let string = editorViewModel?.string {
+            stringInput.text = string
         }
     }
     
     private func inputHandler(){
-        guard let newNumberString = numberInput.text,
-              let newNumber = Int(newNumberString) else {
+        guard let newString = stringInput.text else {
             return
         }
-        editorViewModel?.manageNewNumber(newNumber)
+        editorViewModel?.manageNewValue(newString)
     }
     
     @IBAction private func saveButtonPressed(_ sender: Any?) {

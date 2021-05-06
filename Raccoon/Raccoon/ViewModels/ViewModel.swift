@@ -6,44 +6,49 @@ protocol ViewModelDelegate: class {
     func deleteCell(sender: ViewModel, at index: Int)
     func updateCell(sender: ViewModel, at index: Int)
     func insertCell(sender: ViewModel, at index: Int)
-    func createEditorController(sender: ViewModel, with value: Int?)
-
+    func createEditorController(sender: ViewModel, with value: String?)
 }
 
 
 class ViewModel {
     
     weak var delegate: ViewModelDelegate?
-    private var basicDataManager: DataManager = BasicDataManager()
+    private var dataManager: DataManager = NetworkDataManager()
     
     private var isEditing: Bool = false
     private var pressedCellIndex: Int?
     
     func getDataCount() -> Int {
-        return basicDataManager.getDataCount()
+        return dataManager.getDataCount()
     }
     
     func getStringValue(at index: Int) -> String {
-        return basicDataManager.getStringValue(at: index)
+        return dataManager.getStringValue(at: index)
     }
     
     func getPressedCellIndex() -> Int? {
         return pressedCellIndex
     }
     
-    private func insertData(at index: Int, with value: Int) {
-        basicDataManager.insertValue(value, at: index)
+    private func insertData<T>(at index: Int, with value: T) {
+        dataManager.insertValue(value, at: index)
         delegate?.insertCell(sender: self, at: index)
     }
     
     func removeFromData(at index: Int) {
-        basicDataManager.removeValue(at: index)
+        dataManager.removeValue(at: index)
         delegate?.deleteCell(sender: self, at: index)
     }
     
-    private func updateData(at index: Int, with value: Int) {
-        basicDataManager.updateValue(for: value, at: index)
+    private func updateData<T>(at index: Int, with value: T) {
+        dataManager.updateValue(for: value, at: index)
         delegate?.updateCell(sender: self, at: index)
+    }
+    
+    func fetchData(_ completion: @escaping () -> Void) {
+        dataManager.loadData() {
+            completion()
+        }
     }
     
     func addButtonPressed() {
@@ -54,10 +59,10 @@ class ViewModel {
     func didSelectValue(at index: Int) {
         isEditing = true
         pressedCellIndex = index
-        delegate?.createEditorController(sender: self, with: Int(basicDataManager.getStringValue(at: index)))
+        delegate?.createEditorController(sender: self, with: dataManager.getStringValue(at: index))
     }
     
-    func didReceiveNewValue(_ value: Int) {
+    func didReceiveNewValue<T>(_ value: T) {
         if isEditing {
             guard let index = pressedCellIndex else {
                 return

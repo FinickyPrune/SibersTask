@@ -12,7 +12,12 @@ protocol DataManager {
     func getDataCount() -> Int
     func getStringValue(at index: Int) -> String
     func removeValue(at index: Int)
-    func insertValue(_ value: Int, at index: Int)
-    func updateValue(for value: Int, at index: Int)
+    func insertValue<T>(_ value: T, at index: Int)
+    func updateValue<T>(for value: T, at index: Int)
+    func loadData(_ completion: @escaping () -> Void) 
         
+}
+
+extension DataManager {
+    func loadData(_ completion: @escaping () -> Void) {}
 }

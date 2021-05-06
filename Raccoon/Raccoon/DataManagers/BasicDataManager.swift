@@ -28,7 +28,7 @@ class BasicDataManager {
 }
 
 extension BasicDataManager: DataManager {
- 
+    
     func getStringValue(at index: Int) -> String {
         guard let intData = integerData[safe: index] else {
             fatalError("Index out of bounds.")
@@ -44,12 +44,18 @@ extension BasicDataManager: DataManager {
         integerData.remove(at: index)
     }
     
-    func insertValue(_ value: Int, at index: Int) {
-        integerData.insert(value, at: index)
+    func insertValue<T>(_ value: T, at index: Int) {
+        guard let intValue = value as? Int else {
+            return
+        }
+        integerData.insert(intValue, at: index)
     }
     
-    func updateValue(for value: Int, at index: Int) {
-        integerData[index] = value
+    func updateValue<T>(for value: T, at index: Int) {
+        guard let intValue = value as? Int else {
+            return
+        }
+        integerData[index] = intValue
     }
     
 

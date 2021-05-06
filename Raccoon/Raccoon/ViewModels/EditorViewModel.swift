@@ -8,19 +8,19 @@
 import Foundation
 
 protocol EditorViewModelDelegate: class {
-    func didSubmitValue(_ seder: EditorViewModel, value: Int)
+    func didSubmitValue<T>(_ seder: EditorViewModel, value: T)
 }
 
 
 class EditorViewModel {
     weak var delegate: EditorViewModelDelegate?
-    let number: Int?
+    let string: String?
     
-    init(_ value: Int?) {
-        number = value
+    init(_ value: String?) {
+        string = value
     }
     
-    func manageNewNumber(_ value: Int) {
+    func manageNewValue(_ value: String) {
         delegate?.didSubmitValue(self, value: value)
     }
 }
