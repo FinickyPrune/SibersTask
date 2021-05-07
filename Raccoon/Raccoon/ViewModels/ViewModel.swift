@@ -62,15 +62,24 @@ class ViewModel {
         delegate?.createEditorController(sender: self, with: dataManager.getStringValue(at: index))
     }
     
-    func didReceiveNewValue<T>(_ value: T) {
+    func didReceiveNewValue(_ value: String) {
+        
+        var typedValue: Any? = nil
+        
+        if  let _ = dataManager as? BasicDataManager {
+            typedValue = Int(value)
+        }
+        else if let _ = dataManager as? NetworkDataManager {
+            typedValue = String(value)
+        }
         if isEditing {
             guard let index = pressedCellIndex else {
                 return
             }
-            updateData(at: index, with: value)
+            updateData(at: index, with: typedValue)
         }
         else {
-            insertData(at: 0, with: value)
+            insertData(at: 0, with: typedValue)
         }
     }
     

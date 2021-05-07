@@ -19,5 +19,5 @@ protocol DataManager {
 }
 
 extension DataManager {
-    func loadData(_ completion: @escaping () -> Void) {}
+    func loadData(_ completion: @escaping () -> Void) { completion() }
 }

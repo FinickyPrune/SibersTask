@@ -8,7 +8,7 @@
 import Foundation
 
 protocol EditorViewModelDelegate: class {
-    func didSubmitValue<T>(_ seder: EditorViewModel, value: T)
+    func didSubmitValue(_ seder: EditorViewModel, value: String)
 }
 
 

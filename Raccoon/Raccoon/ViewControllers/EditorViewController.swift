@@ -13,8 +13,7 @@ class EditorViewController: UIViewController {
     @IBOutlet private weak var stringInput: UITextField!
     
     private let saveButtonTitle = "Save"
-    private var tmpNumber: Int?
-    
+
     var editorViewModel: EditorViewModel?
     
     override func viewDidLoad() {
